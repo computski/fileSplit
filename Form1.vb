@@ -4,8 +4,7 @@ Imports System.IO
 Imports System.IO.Compression
 Imports System.Text.RegularExpressions
 
-
-'given a source directory, or a zip file (from google photos download)
+'given a source directory, or a zip file (google)
 'will post file to videos or photos, into a yyyy-mm folder
 'if directory does not exist, will create it
 'if target file exists (based on name) it will not post it but flag as a failure
@@ -14,12 +13,20 @@ Imports System.Text.RegularExpressions
 'the original is not modified
 'source is not scanned for directories
 
-'whilst some files might have exif timestamps such as dateTaken, we don't bother with them, nor do we work off the filename
-'instead we are working off the earliest of createDate or LastModifiedDate
+'Google is an issue for dateStamps.  generally a file will have lastModified=exif date taken, but when you download from
+'google it sets both create and modifed = now.  there is no single library that can pull the meta data for both video and photos
+'so the quick fix is to work off the filename, assuming it contains a data reference.
+'Better fix: we use the COM object to build a dictionary of filenames/datestamps and then pass this to the background worker
 
-'REFERENCES required
-'Shell32.Shell: go into references, browse, browse... and navigate to c:\windows\system32\shell32.dll
-'System.IO.Compression go into references and pick from the navigator
+'2024-08-12 improvements.
+'READ ZIP files. google photos downloads to a zip file
+'MODIFY file attributes.  created and access dates are today (the download date).  Modified date is the source create date.  We want to copy this to the created date.
+'ADD OPTION to use the filename datestamp (if present) in preference to info from the file itself.  e.g. 20160210_202715  alternatively we could take the earliest date
+'found in the attribs and use that as the create date.
+
+
+
+
 
 
 'more BGW and tread info
@@ -42,7 +49,7 @@ Public Class Form1
         txtVidType.Text = GetSetting("flspt22", "general", "vidType", ".mpg,.mp4,.avi,.thm")
         txtVidDest.Text = GetSetting("flspt22", "general", "vidDir", "C:\Users\v817353\Documents\FOLDER_VID\")
         txtOtherDest.Text = GetSetting("flspt22", "general", "otherDir", "C:\Users\v817353\Documents\FOLDER_PIX\")
-
+        chkNestYear.Checked = GetSetting("flspt22", "general", "nestYear", False)
 
 
     End Sub
@@ -139,7 +146,7 @@ Public Class Form1
 
         ElseIf Not (e.Error Is Nothing) Then
 
-            txtReport.AppendText("Error: " + e.Error.Message)
+            txtReport.AppendText("Fatal Error: " + e.Error.Message)
 
         Else
             'txtReport.Text = "Done!"
@@ -162,17 +169,26 @@ Public Class Form1
         'lets assume that createdDate and LastWriteTime are the dates to work with.  Ignore the filename
         dtTimeStamp = fi.CreationTime
         If dtTimeStamp > fi.LastWriteTime Then dtTimeStamp = fi.LastWriteTime
+        fixBrokenDate(dtTimeStamp, fi.Name)
 
         'sender.ReportProgress(0, fi.FullName & " " & dtTimeStamp.ToShortDateString)
 
         '*** calculate which yyyy-mm directory to place this file into
         Dim ymDir As String = Format(dtTimeStamp, "yyyy-MM")
+        '*** don't try and nest to junk years
+        If chkNestYear.Checked And dtTimeStamp.Year < 1980 Then Exit Sub
 
         If vidType.Contains(Mid(fi.Extension, 2).ToUpper) Then
             '*** video file types
             'sender.ReportProgress(0, "V: " & fi.Name & " " & fi.CreationTime & " " & fi.LastWriteTime)
             Dim diTarget As DirectoryInfo = New DirectoryInfo(txtVidDest.Text)
             If Not diTarget.Exists Then Throw New ArgumentException("video target directory does not exist")
+
+            '*** if we are nesting, look for nested level
+            If chkNestYear.Checked Then
+                diTarget = New DirectoryInfo(txtVidDest.Text & "\" & dtTimeStamp.Year & "\")
+                If Not diTarget.Exists Then Throw New ArgumentException("NESTED video target directory does not exist " & dtTimeStamp.Year)
+            End If
 
             '*** if the path does not exist, create it
             Dim wDir As New DirectoryInfo(diTarget.FullName & "\" & ymDir & " vid\")
@@ -199,6 +215,13 @@ Public Class Form1
             '*** other (picture) file types
             Dim diTarget As DirectoryInfo = New DirectoryInfo(txtOtherDest.Text)
             If Not diTarget.Exists Then Throw New ArgumentException("picture target directory does not exist")
+
+            '*** if we are nesting, look for nested level
+            If chkNestYear.Checked Then
+                diTarget = New DirectoryInfo(txtOtherDest.Text & "\" & dtTimeStamp.Year & "\")
+                If Not diTarget.Exists Then Throw New ArgumentException("NESTED picture target directory does not exist " & dtTimeStamp.Year)
+            End If
+
 
             '*** if the path does not exist, create it
             Dim wDir As New DirectoryInfo(diTarget.FullName & "\" & ymDir & " pix\")
@@ -242,16 +265,28 @@ Public Class Form1
 
         '*** with zip files, the only date that is preserved is the lastwritetime
         dtTimeStamp = z.LastWriteTime.DateTime
+        fixBrokenDate(dtTimeStamp, z.Name)
 
         'sender.ReportProgress(0, "zipfile: " & sFilename & " " & dtTimeStamp.ToShortDateString)
 
         '*** calculate which yyyy-mm directory to place this file into
         Dim ymDir As String = Format(dtTimeStamp, "yyyy-MM")
+
+        '*** don't try and nest to junk years
+        If chkNestYear.Checked And dtTimeStamp.Year < 1980 Then Exit Sub
+
+
         If vidType.Contains(Mid(fi.Extension, 2).ToUpper) Then
             '*** video file types
             'sender.ReportProgress(0, "V: " & fi.Name & " " & fi.CreationTime & " " & fi.LastWriteTime)
             Dim diTarget As DirectoryInfo = New DirectoryInfo(txtVidDest.Text)
-            If Not diTarget.Exists Then Throw New ArgumentException("video target directory does not exist")
+            If Not diTarget.Exists Then Throw New ArgumentException("video target directory does not exist " & dtTimeStamp.Year)
+
+            '*** if we are nesting, look for nested level
+            If chkNestYear.Checked Then
+                diTarget = New DirectoryInfo(txtVidDest.Text & "\" & dtTimeStamp.Year & "\")
+                If Not diTarget.Exists Then Throw New ArgumentException("NESTED video target directory does not exist " & dtTimeStamp.Year)
+            End If
 
             '*** if the path does not exist, create it
             Dim wDir As New DirectoryInfo(diTarget.FullName & "\" & ymDir & " vid\")
@@ -285,7 +320,13 @@ Public Class Form1
         Else
             '*** other (picture) file types
             Dim diTarget As DirectoryInfo = New DirectoryInfo(txtOtherDest.Text)
-            If Not diTarget.Exists Then Throw New ArgumentException("picture target directory does not exist")
+            If Not diTarget.Exists Then Throw New ArgumentException("picture target directory does not exist " & dtTimeStamp.Year)
+
+            '*** if we are nesting, look for nested level
+            If chkNestYear.Checked Then
+                diTarget = New DirectoryInfo(txtOtherDest.Text & "\" & dtTimeStamp.Year & "\")
+                If Not diTarget.Exists Then Throw New ArgumentException("NESTED picture target directory does not exist " & dtTimeStamp.Year)
+            End If
 
             '*** if the path does not exist, create it
             Dim wDir As New DirectoryInfo(diTarget.FullName & "\" & ymDir & " pix\")
@@ -320,10 +361,84 @@ Public Class Form1
 
 
     End Sub
+    ''' <summary>
+    ''' Fixes the broken date sometimes found in google photos downloads. If dt is less than year 2000 then try and pull a date from sFilename
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <param name="sFilename"></param>
+    ''' <returns></returns>
+    Function fixBrokenDate(ByRef dt As DateTime, sFilename As String) As Boolean
+        'https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings?redirectedfrom=MSDN
+
+        '*** its more complex... sometimes the modified date is nonsense, and instead there are attributes that relate to 
+        '*** dateTaken or mediacreated
+        '*** but generally the files will have a regex of \d{8}_\{d6} in them which we can use, and if this is less than dt we should use it
+        '*** and if dt is sub 2000 then definately we should use it
+        Dim result As DateTime = #1/1/2000#
+
+        'this almost works, but some files from the OLYMPUS are showing modify dates of 2000 and a date taken date of 2016
 
 
 
 
+        '*** if we can match to a date in the filename, use this
+
+        Dim m As Match = Regex.Match(sFilename, "(\d{8})_(\d{6})|(\d{8})")
+        If m.Success Then
+            '*** further search in filename for full date time, or fall back to date only
+
+            If m.Groups(3).Length > 0 Then
+                Debug.Print(m.Groups(3).ToString)
+                DateTime.TryParseExact(m.Groups(3).ToString, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, result)
+            Else
+                DateTime.TryParseExact(m.Groups(0).ToString, "yyyyMMdd_HHmmss", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeLocal, result)
+            End If
+
+            End If
+
+        '*** if dt is sub year 2000, definately use result
+        '*** if dt is > result, then use result
 
 
+        If (dt < #1/1/2000#) Then
+            dt = result
+            Return True
+        End If
+
+        If (dt > result) Then
+            dt = result
+            Return True
+        End If
+
+        'no change, exit
+        Return False
+
+
+#If False Then
+
+        If (dt < #1/1/2000#) Then
+
+            '20200104_123302
+            Debug.Print(sFilename.Substring(0, 13))
+
+
+            If DateTime.TryParseExact(sFilename.Substring(0, 13), "yyyyMMdd_HHmm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeLocal, result) Then
+                dt = result
+                Return True
+            End If
+
+            '20200104
+            If DateTime.TryParseExact(sFilename.Substring(0, 8), "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, result) Then
+                dt = result
+                Return True
+            End If
+        End If
+            Return False 'no change made
+#End If
+
+    End Function
+
+    Private Sub chkNestYear_CheckedChanged(sender As Object, e As EventArgs) Handles chkNestYear.CheckedChanged
+        SaveSetting("flspt22", "general", "nestYear", chkNestYear.Checked)
+    End Sub
 End Class

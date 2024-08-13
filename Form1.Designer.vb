@@ -34,6 +34,7 @@ Partial Class Form1
         Me.txtReport = New System.Windows.Forms.TextBox()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.chkNestYear = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'BackgroundWorker1
@@ -109,12 +110,12 @@ Partial Class Form1
         Me.txtReport.Location = New System.Drawing.Point(12, 191)
         Me.txtReport.Multiline = True
         Me.txtReport.Name = "txtReport"
-        Me.txtReport.Size = New System.Drawing.Size(568, 247)
+        Me.txtReport.Size = New System.Drawing.Size(568, 276)
         Me.txtReport.TabIndex = 8
         '
         'btnStart
         '
-        Me.btnStart.Location = New System.Drawing.Point(621, 191)
+        Me.btnStart.Location = New System.Drawing.Point(620, 194)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Size = New System.Drawing.Size(75, 23)
         Me.btnStart.TabIndex = 9
@@ -123,18 +124,29 @@ Partial Class Form1
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(621, 220)
+        Me.btnCancel.Location = New System.Drawing.Point(620, 223)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 10
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'chkNestYear
+        '
+        Me.chkNestYear.AutoSize = True
+        Me.chkNestYear.Location = New System.Drawing.Point(15, 168)
+        Me.chkNestYear.Name = "chkNestYear"
+        Me.chkNestYear.Size = New System.Drawing.Size(202, 17)
+        Me.chkNestYear.TabIndex = 11
+        Me.chkNestYear.Text = "Nest destination under a YEAR folder"
+        Me.chkNestYear.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 497)
+        Me.Controls.Add(Me.chkNestYear)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.txtReport)
@@ -165,4 +177,5 @@ Partial Class Form1
     Friend WithEvents txtReport As TextBox
     Friend WithEvents btnStart As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents chkNestYear As CheckBox
 End Class
