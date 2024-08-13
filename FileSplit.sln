@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1778
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FileSplit", "FileSplit\FileSplit.vbproj", "{4AED33E1-C9BD-4180-9D8B-A8CF0383FE46}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FileSplit", "FileSplit.vbproj", "{A8D2F8F5-CB1D-409C-B15B-1469DEB102FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4AED33E1-C9BD-4180-9D8B-A8CF0383FE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AED33E1-C9BD-4180-9D8B-A8CF0383FE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AED33E1-C9BD-4180-9D8B-A8CF0383FE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AED33E1-C9BD-4180-9D8B-A8CF0383FE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8D2F8F5-CB1D-409C-B15B-1469DEB102FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D2F8F5-CB1D-409C-B15B-1469DEB102FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D2F8F5-CB1D-409C-B15B-1469DEB102FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D2F8F5-CB1D-409C-B15B-1469DEB102FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C34E6C83-C88E-4595-BAA4-38762711BAC7}
+		SolutionGuid = {B699038F-5CEF-4D0D-8C72-2C2DBC674E6B}
 	EndGlobalSection
 EndGlobal

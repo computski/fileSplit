@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.txtSource = New System.Windows.Forms.TextBox()
@@ -34,7 +34,6 @@ Partial Class Form1
         Me.txtReport = New System.Windows.Forms.TextBox()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'BackgroundWorker1
@@ -131,21 +130,11 @@ Partial Class Form1
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(621, 250)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 11
-        Me.Button1.Text = "exif"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.txtReport)
@@ -158,7 +147,7 @@ Partial Class Form1
         Me.Controls.Add(Me.txtVidType)
         Me.Controls.Add(Me.txtSource)
         Me.Name = "Form1"
-        Me.Text = "FileSplit 2022"
+        Me.Text = "FileSplit 2024"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -176,5 +165,4 @@ Partial Class Form1
     Friend WithEvents txtReport As TextBox
     Friend WithEvents btnStart As Button
     Friend WithEvents btnCancel As Button
-    Friend WithEvents Button1 As Button
 End Class
