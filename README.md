@@ -5,3 +5,5 @@ Video files are posted to yyyy-mm vid folders and pix to yyyy-mm pix folders
 Does not overwrite any targets if they already exist.
 
 Can also process zip archives, pulling out the files and posting them correctly.  This is ideal to cope with google photos downloads.
+
+Further tweaked to cope with missing/ nonsense datestamps such as 1980 or earlier.  Tool will attempt to derive date from the filename.
