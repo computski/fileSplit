@@ -133,6 +133,15 @@ Public Class Form1
 
 
         worker.ReportProgress(1, vbCrLf & "+++ Complete +++")
+
+        '*** 2025-09-06 write a log file to source directory
+        'https://stackoverflow.com/questions/1613666/creating-and-appending-text-to-txt-file-in-vb-net
+        Dim strFile As String = Me.txtSource.Text & $"FileLog_{DateTime.Now:yyyy-MM-dd_HHmmss}.txt"
+        File.AppendAllText(strFile, Me.txtReport.Text)
+
+
+
+
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged

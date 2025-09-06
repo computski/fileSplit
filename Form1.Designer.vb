@@ -42,91 +42,102 @@ Partial Class Form1
         '
         'txtSource
         '
-        Me.txtSource.Location = New System.Drawing.Point(12, 25)
+        Me.txtSource.Location = New System.Drawing.Point(16, 31)
+        Me.txtSource.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtSource.Name = "txtSource"
-        Me.txtSource.Size = New System.Drawing.Size(568, 20)
+        Me.txtSource.Size = New System.Drawing.Size(756, 22)
         Me.txtSource.TabIndex = 0
         '
         'txtVidType
         '
-        Me.txtVidType.Location = New System.Drawing.Point(12, 64)
+        Me.txtVidType.Location = New System.Drawing.Point(16, 79)
+        Me.txtVidType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtVidType.Name = "txtVidType"
-        Me.txtVidType.Size = New System.Drawing.Size(568, 20)
+        Me.txtVidType.Size = New System.Drawing.Size(756, 22)
         Me.txtVidType.TabIndex = 1
         Me.txtVidType.Text = "mpg,mp4,avi,thm,modd,moff,flv,m4v"
         '
         'txtVidDest
         '
-        Me.txtVidDest.Location = New System.Drawing.Point(12, 103)
+        Me.txtVidDest.Location = New System.Drawing.Point(16, 127)
+        Me.txtVidDest.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtVidDest.Name = "txtVidDest"
-        Me.txtVidDest.Size = New System.Drawing.Size(568, 20)
+        Me.txtVidDest.Size = New System.Drawing.Size(756, 22)
         Me.txtVidDest.TabIndex = 2
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Location = New System.Drawing.Point(16, 11)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(84, 13)
+        Me.Label1.Size = New System.Drawing.Size(105, 16)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Source directory"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 48)
+        Me.Label2.Location = New System.Drawing.Point(16, 59)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(244, 13)
+        Me.Label2.Size = New System.Drawing.Size(308, 16)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Video file types (suffix, comma separated, omit dot)"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 87)
+        Me.Label3.Location = New System.Drawing.Point(16, 107)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(125, 13)
+        Me.Label3.Size = New System.Drawing.Size(156, 16)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Destination for video files"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(9, 126)
+        Me.Label4.Location = New System.Drawing.Point(12, 155)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(160, 13)
+        Me.Label4.Size = New System.Drawing.Size(198, 16)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Destination for pix and other files"
         '
         'txtOtherDest
         '
-        Me.txtOtherDest.Location = New System.Drawing.Point(12, 142)
+        Me.txtOtherDest.Location = New System.Drawing.Point(16, 175)
+        Me.txtOtherDest.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtOtherDest.Name = "txtOtherDest"
-        Me.txtOtherDest.Size = New System.Drawing.Size(568, 20)
+        Me.txtOtherDest.Size = New System.Drawing.Size(756, 22)
         Me.txtOtherDest.TabIndex = 7
         '
         'txtReport
         '
-        Me.txtReport.Location = New System.Drawing.Point(12, 191)
+        Me.txtReport.Location = New System.Drawing.Point(16, 235)
+        Me.txtReport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtReport.Multiline = True
         Me.txtReport.Name = "txtReport"
-        Me.txtReport.Size = New System.Drawing.Size(568, 276)
+        Me.txtReport.Size = New System.Drawing.Size(756, 339)
         Me.txtReport.TabIndex = 8
         '
         'btnStart
         '
-        Me.btnStart.Location = New System.Drawing.Point(620, 194)
+        Me.btnStart.Location = New System.Drawing.Point(827, 239)
+        Me.btnStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(75, 23)
+        Me.btnStart.Size = New System.Drawing.Size(100, 28)
         Me.btnStart.TabIndex = 9
         Me.btnStart.Text = "Start"
         Me.btnStart.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(620, 223)
+        Me.btnCancel.Location = New System.Drawing.Point(827, 274)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(100, 28)
         Me.btnCancel.TabIndex = 10
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -134,18 +145,19 @@ Partial Class Form1
         'chkNestYear
         '
         Me.chkNestYear.AutoSize = True
-        Me.chkNestYear.Location = New System.Drawing.Point(15, 168)
+        Me.chkNestYear.Location = New System.Drawing.Point(20, 207)
+        Me.chkNestYear.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkNestYear.Name = "chkNestYear"
-        Me.chkNestYear.Size = New System.Drawing.Size(202, 17)
+        Me.chkNestYear.Size = New System.Drawing.Size(487, 20)
         Me.chkNestYear.TabIndex = 11
-        Me.chkNestYear.Text = "Nest destination under a YEAR folder"
+        Me.chkNestYear.Text = "Nest destination under a YEAR folder in target. (This folder must already exist)"
         Me.chkNestYear.UseVisualStyleBackColor = True
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 497)
+        Me.ClientSize = New System.Drawing.Size(1067, 612)
         Me.Controls.Add(Me.chkNestYear)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnStart)
@@ -158,6 +170,7 @@ Partial Class Form1
         Me.Controls.Add(Me.txtVidDest)
         Me.Controls.Add(Me.txtVidType)
         Me.Controls.Add(Me.txtSource)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Form1"
         Me.Text = "FileSplit 2024"
         Me.ResumeLayout(False)
